@@ -49,7 +49,7 @@ body{
 .calendar__days {
 	height: 3rem;
 	width: 100%;
-	padding: 0 0.3rem;
+	padding: 0 4.3rem;
 }
 
 .calendar__days-day{
@@ -92,79 +92,15 @@ body{
 	font-weight: 700;
 }
 
-@media screen and (max-width: 934px){
-	.calendar__dates-date {
-	    width: calc(43.2rem/7);
-	}
-	.calendar__days-day {
-	    width: calc(47.2rem / 7);
-	}
-}
-
-@media screen and (max-width: 904px){
-	.calendar__dates-date {
-	    width: calc(42.2rem/7);
-	}
-	.calendar__days-day {
-	    width: calc(47.2rem / 7);
-	}
-}
-
-@media screen and (max-width: 768px){
-	.calendar__dates {
-		padding: 0;
-	}
-	.calendar__dates-date {
-	    width: calc(41.2rem/7);
-	}
-	.calendar__month{
-		margin-top: 0;
-	}
-}
-
-@media screen and (max-width: 540px){
-	.calendar__dates-date {
-	    width: calc(27.2rem/7);
+@media screen and (max-width: 619px){
+	.calendar__dates-date{
+		height: 4rem;
+		margin: 0;
 	}
 }
 
 @media screen and (max-width: 425px){
-	.calendar__dates {
-		padding: 0;
-		height: 24rem;
-	}
-	.calendar__dates-date {
-	    width: calc(20.2rem/7);
-	    height: 3rem;
-	}
-}
-
-@media screen and (max-width: 414px){
-	.calendar__dates-date {
-	    width: calc(19.2rem/7);
-	}
-}
-
-@media screen and (max-width: 375px){
-	.calendar__dates-date {
-	    width: calc(17.2rem/7);
-	}
-}
-
-@media screen and (max-width: 360px){
-	.calendar__dates-date {
-	    width: calc(16.2rem/7);
-	}
-}
-
-@media screen and (max-width: 320px){
-	.calendar__dates-date {
-	    width: calc(14.2rem/7);
-	}
-}
-
-@media screen and (max-width: 280px){
-	.calendar__dates-date {
-	    width: calc(11.2rem/7);
+	.calendar__dates-date{
+		height: 3rem;
 	}
 }
