@@ -25,7 +25,7 @@
 					<div class="calendar__days-day date-end col-">Вс</div>
 				</div>
 				<div class="calendar__dates">
-					<div class="7day d-flex justify-content-between">
+					<div class="day d-flex justify-content-between" id="day">
 						<div class="calendar__dates-date col-">1</div>
 						<div class="calendar__dates-date col-">2</div>
 						<div class="calendar__dates-date col-">3</div>
@@ -34,7 +34,7 @@
 						<div class="calendar__dates-date date-end col-">6</div>
 						<div class="calendar__dates-date date-end col-">7</div>
 					</div>
-					<div class="7day d-flex justify-content-between align-items-center">
+					<div class="day d-flex justify-content-between align-items-center" id="day">
 						<div class="calendar__dates-date col-">8</div>
 						<div class="calendar__dates-date col-">9</div>
 						<div class="calendar__dates-date col-">10</div>
@@ -43,7 +43,7 @@
 						<div class="calendar__dates-date date-end col-">13</div>
 						<div class="calendar__dates-date date-end col-">14</div>
 					</div>
-					<div class="7day d-flex justify-content-between">
+					<div class="day d-flex justify-content-between" id="day">
 						<div class="calendar__dates-date col-">15</div>
 						<div class="calendar__dates-date col-">16</div>
 						<div class="calendar__dates-date col-">17</div>
@@ -52,7 +52,7 @@
 						<div class="calendar__dates-date date-end col-">20</div>
 						<div class="calendar__dates-date date-end col-">21</div>
 					</div>
-					<div class="7day d-flex justify-content-between">
+					<div class="day d-flex justify-content-between" id="day">
 						<div class="calendar__dates-date col-">22</div>
 						<div class="calendar__dates-date col-">23</div>
 						<div class="calendar__dates-date col-">24</div>
@@ -70,12 +70,12 @@
 						<h2>Список:</h2>
 						<form>
 							<label for="toDo">ToDo: </label>
-						<input type="toDo" name="toDo-list">
+						<input type="text" class="toDo-input">
 						</form>
 						<button class="toDo-add">Добавить</button>
 						<span class="m-bgclose">x</span>
 						<div class="toDo-container">
-							
+							<ul class="toDo-list"></ul>
 						</div>
 					</div>
 
