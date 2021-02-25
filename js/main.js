@@ -6,28 +6,27 @@ const modalClose = document.querySelector('.m-bgclose');
 
 const modalDiv = document.querySelectorAll('.calendar__dates-date');
 
+/*
+for(let i=0;i<modalDiv.length;i++){
+    modalDiv[i].addEventListener('click', function(e) {
+    	console.log(modalDiv);
+    })
+}
+*/
 
 Array.from(modalDiv).forEach(link => {
     link.addEventListener('click', function(event) {
-		
 		modalBg.classList.add('m-bg__active');
-		console.log(this);
-		
     });
 });
-
-
-const todoInput = document.querySelector('.toDo-input');
-const todoBtn = document.querySelector('.toDo-add');
-const todoList = document.querySelector('.toDo-list');
-
-modalBtn.addEventListener('click', function() {
-	modalBg.classList.add('m-bg__active');
-})
 
 modalClose.addEventListener('click', function() {
 	modalBg.classList.remove('m-bg__active');
 })
+
+const todoInput = document.querySelector('.toDo-input');
+const todoBtn = document.querySelector('.toDo-add');
+const todoList = document.querySelector('.toDo-list');
 
 todoBtn.addEventListener('click', addTodo);
 todoList.addEventListener('click', deleteTask);
