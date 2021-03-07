@@ -1,10 +1,38 @@
 //modal
 
-const modalBtn = document.querySelector('.m-btn');
-const modalBg = document.querySelector('.m-bg');
-const modalClose = document.querySelector('.m-bgclose');
+const modalBtn = document.querySelector(".m-btn");
+const modalBg = document.querySelector(".m-bg");
+const modalClose = document.querySelector(".m-bgclose");
 
-const modalDiv = document.querySelectorAll('.calendar__dates-date');
+const modalDiv = document.getElementsByClassName("calendar__dates-date");
+
+let todoInput = document.querySelector(".toDo-input");
+const todoBtn = document.querySelector(".toDo-add");
+const todoList = document.querySelector(".toDo-list");
+
+for (let i = 0; i < modalDiv.length; i++) {
+  let item = modalDiv[i];
+
+  let listTodo = [];
+
+  item.addEventListener("click", function () {
+    console.log(item);
+
+    modalBg.classList.add("m-bg__active");
+
+    todoBtn.addEventListener("click", function () {
+      let input = todoInput.value;
+      let temp = {};
+      temp.todo = input;
+      temp.completed = false;
+
+      let i = listTodo.length;
+      //listTodo[i] = temp;
+      listTodo.splice(i, 0, temp);
+    });
+    console.log(listTodo);
+  });
+}
 
 /*
 for(let i=0;i<modalDiv.length;i++){
@@ -12,66 +40,58 @@ for(let i=0;i<modalDiv.length;i++){
     	console.log(modalDiv);
     })
 }
-*/
 
-Array.from(modalDiv).forEach(link => {
-    link.addEventListener('click', function(event) {
-		modalBg.classList.add('m-bg__active');
-    });
+
+Array.from(modalDiv).forEach((link) => {
+  link.addEventListener("click", function (event) {
+    modalBg.classList.add("m-bg__active");
+  });
+  //lol
+});
+*/
+modalClose.addEventListener("click", function () {
+  modalBg.classList.remove("m-bg__active");
 });
 
-modalClose.addEventListener('click', function() {
-	modalBg.classList.remove('m-bg__active');
-})
+todoBtn.addEventListener("click", addTodo);
+todoList.addEventListener("click", deleteTask);
 
-const todoInput = document.querySelector('.toDo-input');
-const todoBtn = document.querySelector('.toDo-add');
-const todoList = document.querySelector('.toDo-list');
+function addTodo(event) {
+  const todoDiv = document.createElement("div");
+  todoDiv.classList.add("todo");
 
-todoBtn.addEventListener('click', addTodo);
-todoList.addEventListener('click', deleteTask);
+  const newTodo = document.createElement("li");
+  newTodo.innerText = todoInput.value;
+  newTodo.classList.add("todo-item");
 
-function addTodo(event){
-	console.log('222');
-	const todoDiv = document.createElement("div");
-	todoDiv.classList.add("todo");
+  todoDiv.appendChild(newTodo);
 
-	const newTodo = document.createElement("li");
-	newTodo.innerText = todoInput.value;
-	newTodo.classList.add("todo-item");
+  const completedBtn = document.createElement("button");
+  completedBtn.innerText = "Сделано";
+  completedBtn.classList.add("complete-btn");
+  todoDiv.appendChild(completedBtn);
 
-	todoDiv.appendChild(newTodo);
+  const deleteBtn = document.createElement("button");
+  deleteBtn.innerText = "Удалить";
+  deleteBtn.classList.add("delete-btn");
+  todoDiv.appendChild(deleteBtn);
 
-	const completedBtn = document.createElement('button');
-	completedBtn.innerText = "Сделано";
-	completedBtn.classList.add('complete-btn');
-	todoDiv.appendChild(completedBtn);
-
-	const deleteBtn = document.createElement('button');
-	deleteBtn.innerText = "Удалить";
-	deleteBtn.classList.add('delete-btn');
-	todoDiv.appendChild(deleteBtn);
-
-	todoList.appendChild(todoDiv)
-
-	todoInput.value = '';
+  todoList.appendChild(todoDiv);
 }
 
 function deleteTask(e) {
-	const item = e.target;
+  const item = e.target;
 
-	if(item.classList[0] === 'delete-btn'){
-		const todo = item.parentElement;
-		todo.remove();
-	}
+  if (item.classList[0] === "delete-btn") {
+    const todo = item.parentElement;
+    todo.remove();
+  }
 
-	if(item.classList[0] === 'complete-btn'){
-		const todo = item.parentElement;
-		todo.classList.toggle('completed')
-	}
+  if (item.classList[0] === "complete-btn") {
+    const todo = item.parentElement;
+    todo.classList.toggle("completed");
+  }
 }
-
-
 
 //let modalBtn = document.querySelector('div.calendar__dates-date');
 
@@ -82,7 +102,6 @@ let mDiv = document.querySelectorAll('.calendar__dates-date').forEach(mDiv => {
   })
 })
 */
-
 
 /*
 let mDiv = document.querySelectorAll('div').forEach(mDiv => {
