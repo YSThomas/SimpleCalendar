@@ -7,6 +7,7 @@ const modalDiv = document.getElementsByClassName("calendar__dates-date");
 let todoInput = document.querySelector(".toDo-input");
 const todoBtn = document.querySelector(".toDo-add");
 const todoList = document.querySelector(".toDo-list");
+const justTodo = document.querySelectorAll(".todo");
 
 window.selectedDay = 0;
 
@@ -102,29 +103,49 @@ function deleteTask(e) {
   let fullText = item.parentElement.parentElement.innerText;
   let replaceText = fullText.replace(btnText, "");
 
-  allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
-    console.log(obj);
-    if (
-      replaceText.replace(/\r?\n/g, "") ==
-      allDatesArray[window.selectedDay - 1][i].todo
-    ) {
-      allDatesArray[window.selectedDay - 1].splice(i, 1);
-      console.log("Получилось! Индекс: " + i);
-      localStorage.setItem("testtodos", JSON.stringify(allDatesArray)); // сохранение
-    } else {
-      console.log("Снова что-то поломал");
-      return;
-    }
-  });
-
   if (item.classList[0] === "delete-btn") {
     const todo = item.parentElement.parentElement;
-
+    allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
+      console.log(obj);
+      if (
+        replaceText.replace(/\r?\n/g, "") ==
+        allDatesArray[window.selectedDay - 1][i].todo
+      ) {
+        allDatesArray[window.selectedDay - 1].splice(i, 1);
+        console.log("Получилось! Индекс: " + i);
+        localStorage.setItem("testtodos", JSON.stringify(allDatesArray)); // сохранение
+      } else {
+        console.log("Снова что-то поломал");
+        return;
+      }
+    });
     todo.remove();
   }
 
   if (item.classList[0] === "complete-btn") {
     const todo = item.parentElement.parentElement;
+
+    let btnText = item.parentElement.innerText;
+    let fullText = item.parentElement.parentElement.innerText;
+    let replaceText = fullText.replace(btnText, "");
+
+    allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
+      console.log(obj);
+      if (
+        replaceText.replace(/\r?\n/g, "") ==
+          allDatesArray[window.selectedDay - 1][i].todo &&
+        allDatesArray[window.selectedDay - 1][i]["completed"] == false
+      ) {
+        allDatesArray[window.selectedDay - 1][i]["completed"] = true;
+      } else if (
+        replaceText.replace(/\r?\n/g, "") ==
+          allDatesArray[window.selectedDay - 1][i].todo &&
+        allDatesArray[window.selectedDay - 1][i]["completed"] == true
+      ) {
+        allDatesArray[window.selectedDay - 1][i]["completed"] = false;
+      }
+    });
+
     todo.classList.toggle("completed");
   }
 }
