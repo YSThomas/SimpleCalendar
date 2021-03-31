@@ -10,15 +10,19 @@ const todoList = document.querySelector(".toDo-list");
 
 window.selectedDay = 0;
 
-let allDatesArray = [];
+let allDatesArray = JSON.parse(localStorage.getItem("testtodos"));
+
+if (!allDatesArray) {
+  allDatesArray = [];
+
+  for (let i = 0; i < modalDiv.length; i++) {
+    let listTodo = [];
+    allDatesArray.push(listTodo);
+  }
+}
 
 for (let i = 0; i < modalDiv.length; i++) {
   let item = modalDiv[i];
-
-  let listTodo = [];
-
-  allDatesArray.push(listTodo);
-
   item.addEventListener("click", function (e) {
     window.selectedDay = Number(item.innerText);
     console.log(window.selectedDay);
@@ -42,16 +46,6 @@ for (let i = 0; i < modalDiv.length; i++) {
     );
 
     todoList.innerHTML = arrayItems;
-
-    // for (let j = 0; j < window.selectedDay; j++) {
-    //   let out = "";
-    //   out += `
-    // <div class="todo"><li class="todo-item">
-    // ${allDatesArray[window.selectedDay - 1][0]["todo"]}
-    // </li>
-    // <button class="complete-btn">Сделано</button><button class="delete-btn">Удалить</button></div>`;
-    //   todoList.innerHTML = out;
-    // }
   });
 }
 
@@ -64,28 +58,11 @@ todoBtn.addEventListener("click", function (e) {
 
   allDatesArray[window.selectedDay - 1].push(temp);
 
+  localStorage.setItem("testtodos", JSON.stringify(allDatesArray));
+
   addTodo(e, objIndex);
-
-  // objIndex = objIndex;
-  // chtoTo(objIndex);
+  todoInput.value = "";
 });
-
-function chtoTo(index) {
-  const deleteBtn = document.getElementsByClassName("delete-btn");
-  const todoElement = document.querySelector(".todo");
-  // for (let i = 0; i < deleteBtn.length; i++) {
-  console.log(index);
-  deleteBtn[index].addEventListener("click", (e) => {
-    // delete allDatesArray[window.selectedDay - 1][i];
-    let array = allDatesArray[window.selectedDay - 1];
-    array.splice(index, 1);
-
-    console.log(array);
-
-    console.log(index);
-  });
-  // }
-}
 
 modalClose.addEventListener("click", function () {
   modalBg.classList.remove("m-bg__active");
@@ -113,16 +90,9 @@ function addTodo(event, index) {
   deleteBtn.innerText = "Удалить";
   deleteBtn.classList.add("delete-btn");
 
-  // deleteBtn.addEventListener("click", (e) => {
-  //   index = index;
-  //   console.log(index);
-  // });
-
   btnDiv.appendChild(deleteBtn);
 
   todoList.appendChild(todoDiv);
-
-  // chtoTo(index);
 }
 
 function deleteTask(e) {
@@ -132,21 +102,6 @@ function deleteTask(e) {
   let fullText = item.parentElement.parentElement.innerText;
   let replaceText = fullText.replace(btnText, "");
 
-  // let arr = allDatesArray[window.selectedDay - 1];
-
-  // let btnText = item.parentElement.innerText;
-  // let fullText = item.parentElement.parentElement.innerText;
-  // let replaceText = fullText.replace(btnText, "");
-  // console.log(replaceText);
-
-  // const ohBlya = arr.filter((el) => {
-  //   return el["todo"].indexOf(replaceText);
-  // });
-  // console.log(ohBlya);
-
-  // let getIndex = arr["todo"].indexOf(replaceText);
-
-  // chtoTo();
   allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
     console.log(obj);
     if (
@@ -155,11 +110,11 @@ function deleteTask(e) {
     ) {
       allDatesArray[window.selectedDay - 1].splice(i, 1);
       console.log("Получилось! Индекс: " + i);
+      localStorage.setItem("testtodos", JSON.stringify(allDatesArray)); // сохранение
     } else {
       console.log("Снова что-то поломал");
       return;
     }
-    // console.log(obj["todo"]);
   });
 
   if (item.classList[0] === "delete-btn") {
@@ -173,18 +128,3 @@ function deleteTask(e) {
     todo.classList.toggle("completed");
   }
 }
-
-// const deleteBtn = document.getElementsByClassName("delete-btn");
-
-// document.addEventListener("click", function (e) {
-//   if (e.target && e.target.className == "delete-btn") {
-//     console.log(deleteBtn);
-
-//   }
-// });
-
-// for (let i = 0; i < deleteBtn.length; i++) {
-// deleteBtn[i].addEventListener("click", (e) => {
-//   console.log(e);
-// });
-// }
