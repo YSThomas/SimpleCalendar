@@ -1,201 +1,201 @@
-*{
-	padding: 0;
-	margin: 0;
-	border: 0;
-	box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
 }
 
-*,*:before,*:after{
-
+*,
+*:before,
+*:after {
 }
 
-a{
-	color: #000;
-	display: inline-block;
-	text-decoration: none;
+a {
+  color: #000;
+  display: inline-block;
+  text-decoration: none;
 }
 
 ul {
-	list-style: none;
+  list-style: none;
 }
 
 li {
-	display: inline-block;
+  display: inline-block;
 }
 
 h1 {
-	margin: 0;
+  margin: 0;
 }
 
-body{
-	background-color: #444;
+body {
+  background-color: #444;
 }
 
 .container {
-	background-color: #eee;
-	max-width: 62.5rem;
+  background-color: #eee;
+  max-width: 62.5rem;
 }
 
 .calendar {
-
 }
 
 .calendar__month {
-	width: 100%;
-	height: 5rem;
-	margin-top: 4rem;
+  width: 100%;
+  height: 5rem;
+  margin-top: 4rem;
 }
 
 .calendar__days {
-	height: 3rem;
-	width: 100%;
-	padding: 0 4.3rem;
+  height: 3rem;
+  width: 100%;
+  padding: 0 4.3rem;
 }
 
-.calendar__days-day{
-	width: calc(48.2rem / 7);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-weight: 700;
+.calendar__days-day {
+  width: calc(48.2rem / 7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
 }
 
 .calendar__dates {
-	width: 100%;
-	height: 35rem;
-	flex-wrap: wrap;
-	padding: 0 4.3rem;
-	margin-top: 1rem;
+  width: 100%;
+  height: 35rem;
+  flex-wrap: wrap;
+  padding: 0 4.3rem;
+  margin-top: 1rem;
 }
 
 .calendar__dates-date {
-	margin: 0.3rem;
-	width: calc(44.2rem/7); 
-	height: 5rem;
-	display: flex;
-	border: 1px solid rgba(0, 0, 0, .1);
-	align-items: center;
-	justify-content: center;
-	transition: color .3s ease;
-	transition: background-color .5s ease;
-	transition: font-weight .2s ease;
-	cursor: pointer;
+  margin: 0.3rem;
+  width: calc(44.2rem / 7);
+  height: 5rem;
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+  transition: background-color 0.5s ease;
+  transition: font-weight 0.2s ease;
+  cursor: pointer;
 }
 
-.date-end{
-	color: #a80000;
+.date-end {
+  color: #a80000;
 }
 
 .calendar__dates-date:hover {
-	background-color: #888;
-	color: #fff;
-	font-weight: 700;
+  background-color: #888;
+  color: #fff;
+  font-weight: 700;
 }
 
 .m-bg {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	background-color: rgba(0,0,0,0.3);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	visibility: hidden;
-	opacity: 0;
-	transition: visibility 0s, opacity 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s;
 }
 
 .m-section {
-	background-color: #fff;
-	width: 70%;
-	height: 75%;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	position: relative;
-	padding-top: 50px;
+  background-color: #fff;
+  width: 70%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  padding-top: 50px;
 }
 
 .m-bgclose {
-	height: 40px;
-	width: 40px;
-	background-color: red;
-	cursor: pointer;
-	color: #fff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight: bold;
-	top: 4%;
-	right: 4%;
-	position: absolute;
+  height: 40px;
+  width: 40px;
+  background-color: red;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  top: 4%;
+  right: 4%;
+  position: absolute;
 }
 
 .m-bg__active {
-	visibility: visible;
-	opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .m-btn {
-	background-color: #2980b9;
-	padding: 10px 30px;
-	font-weight: bold;
-	color: #fff;
-	border-radius: 9px;
-	margin: 15px 0;
-	width: 30%;
+  background-color: #2980b9;
+  padding: 10px 30px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 9px;
+  margin: 15px 0;
+  width: 30%;
 }
 
 .m-section button {
-	background-color: #2980b9;
-	padding: 10px 30px;
-	font-weight: bold;
-	color: #fff;
-	border-radius: 9px;
-	margin: 15px 0;
+  background-color: #2980b9;
+  padding: 10px 30px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 9px;
+  margin: 5px 0;
 }
 
 .toDo-container {
-	min-width: 85%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  min-width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.toDo-list{
-	width: 100%;
+.toDo-list {
+  width: 100%;
 }
 
 .todo {
-	font-weight: 700;
-	padding: 0 30px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background-color: yellow;
-	transition: all 1s ease;
+  font-weight: 700;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: yellow;
+  transition: all 1s ease;
 }
 
 .todo li {
-	flex: 1;
+  flex: 1;
 }
 
 .completed {
-	opacity: 0.3;
-	background-color: green;
+  opacity: 0.3;
+  background-color: green;
 }
 
-@media screen and (max-width: 619px){
-	.calendar__dates-date{
-		height: 4rem;
-		margin: 0;
-	}
+@media screen and (max-width: 619px) {
+  .calendar__dates-date {
+    height: 4rem;
+    margin: 0;
+  }
 }
 
-@media screen and (max-width: 425px){
-	.calendar__dates-date{
-		height: 3rem;
-	}
+@media screen and (max-width: 425px) {
+  .calendar__dates-date {
+    height: 3rem;
+  }
 }
