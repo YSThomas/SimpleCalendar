@@ -27,7 +27,12 @@ let renderCalendar = () => {
     date.getMonth(),
     0
   ).getDate();
-  const firstDayIndex = date.getDay() - 1;
+
+  let firstDayIndex = date.getDay() - 1;
+  if (firstDayIndex == -1) {
+    firstDayIndex = date.getDay() + 6;
+  }
+
   const lastDayIndex = new Date(
     date.getFullYear(),
     date.getMonth() + 1,
@@ -85,7 +90,6 @@ let renderCalendar = () => {
     item.addEventListener("click", function (e) {
       window.selectedDay = Number(item.innerText);
       console.log(window.selectedDay);
-
       modalBg.classList.add("m-bg__active");
 
       let arrayItems = allDatesArray[window.selectedDay - 1].reduce(
