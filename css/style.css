@@ -9,6 +9,20 @@
 *:before,
 *:after {
 }
+.arrows {
+  padding-top: 30px;
+}
+.prev__arrow,
+.next__arrow {
+  height: 2rem;
+  width: 2rem;
+  background-color: rgba(0, 134, 134, 0.247);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 200;
+}
 
 a {
   color: #000;
@@ -43,7 +57,7 @@ body {
 .calendar__month {
   width: 100%;
   height: 5rem;
-  margin-top: 4rem;
+  margin-top: 0.5rem;
 }
 
 .calendar__days {

@@ -12,50 +12,62 @@ const justTodo = document.querySelectorAll(".todo");
 const date = new Date();
 const daysDiv = document.querySelector(".day");
 
-date.setDate(1);
+const renderCalendar = () => {
+  date.setDate(1);
 
-const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-const firstDayIndex = date.getDay() - 1;
-const lastDayIndex = new Date(
-  date.getFullYear(),
-  date.getMonth() + 1,
-  0
-).getDay();
-const nextDays = 7 - lastDayIndex;
+  const lastDay = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0
+  ).getDate();
+  const prevLastDay = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    0
+  ).getDate();
+  const firstDayIndex = date.getDay() - 1;
+  const lastDayIndex = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0
+  ).getDay();
+  const nextDays = 7 - lastDayIndex;
 
-console.log(firstDayIndex);
-let days = "";
+  console.log(firstDayIndex);
 
-const months = [
-  "Январь",
-  "Февраль",
-  "Март",
-  "Апрель",
-  "Май",
-  "Июнь",
-  "Июль",
-  "Август",
-  "Сентябрь",
-  "Октябрь",
-  "Ноябрь",
-  "Декабрь",
-];
-for (let x = firstDayIndex; x > 0; x--) {
-  days += `<div class='calendar__dates-date prev__date col-'>${
-    prevLastDay - x + 1
-  }</div>`;
-}
-for (let i = 1; i <= lastDay; i++) {
-  days += `<div class='calendar__dates-date col-'>${i}</div>`;
-  daysDiv.innerHTML = days;
-}
-for (let j = 1; j <= nextDays; j++) {
-  days += `<div class='calendar__dates-date next__date col-'>${j}</div>`;
-  daysDiv.innerHTML = days;
-}
+  let days = "";
 
-document.querySelector(".calendar__month").innerHTML = months[date.getMonth()];
+  const months = [
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь",
+  ];
+  for (let x = firstDayIndex; x > 0; x--) {
+    days += `<div class='calendar__dates-date prev__date col-'>${
+      prevLastDay - x + 1
+    }</div>`;
+  }
+  for (let i = 1; i <= lastDay; i++) {
+    days += `<div class='calendar__dates-date col-'>${i}</div>`;
+    // daysDiv.innerHTML = days;
+  }
+  for (let j = 1; j <= nextDays; j++) {
+    days += `<div class='calendar__dates-date next__date col-'>${j}</div>`;
+    daysDiv.innerHTML = days;
+  }
+
+  document.querySelector(".calendar__month").innerHTML =
+    months[date.getMonth()];
+};
 
 window.selectedDay = 0;
 
@@ -200,3 +212,15 @@ function deleteTask(e) {
     todo.classList.toggle("completed");
   }
 }
+
+document.querySelector(".prev__arrow").addEventListener("click", () => {
+  date.setMonth(date.getMonth() - 1);
+  renderCalendar();
+});
+
+document.querySelector(".next__arrow").addEventListener("click", () => {
+  date.setMonth(date.getMonth() + 1);
+  renderCalendar();
+});
+
+renderCalendar();
