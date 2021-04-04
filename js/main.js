@@ -12,11 +12,34 @@ const justTodo = document.querySelectorAll(".todo");
 const date = new Date();
 const daysDiv = document.querySelector(".day");
 let allDatesArray = JSON.parse(localStorage.getItem("testtodos"));
-
 date.setDate(1);
+////////////////////////////////////
 
-let renderCalendar = () => {
-  console.log(allDatesArray);
+console.log((Date.now() / 1000 / 60 / 60 / 24).toFixed(3));
+
+window.selectedDay = 0;
+
+console.log(allDatesArray);
+const months = [
+  "Январь",
+  "Февраль",
+  "Март",
+  "Апрель",
+  "Май",
+  "Июнь",
+  "Июль",
+  "Август",
+  "Сентябрь",
+  "Октябрь",
+  "Ноябрь",
+  "Декабрь",
+];
+
+function renderCalendar() {
+  let days = "";
+  document.querySelector(".calendar__month").innerHTML =
+    months[date.getMonth()];
+
   const lastDay = new Date(
     date.getFullYear(),
     date.getMonth() + 1,
@@ -42,22 +65,6 @@ let renderCalendar = () => {
 
   console.log(firstDayIndex);
 
-  let days = "";
-
-  const months = [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь",
-  ];
   for (let x = firstDayIndex; x > 0; x--) {
     days += `<div class='calendar__dates-date prev__date col-'>${
       prevLastDay - x + 1
@@ -72,10 +79,7 @@ let renderCalendar = () => {
     daysDiv.innerHTML = days;
   }
 
-  document.querySelector(".calendar__month").innerHTML =
-    months[date.getMonth()];
-
-  window.selectedDay = 0;
+  ///////////////////////////////////
 
   for (let i = 0; i < modalDiv.length; i++) {
     let item = modalDiv[i];
@@ -110,108 +114,108 @@ let renderCalendar = () => {
 
       todoList.innerHTML = arrayItems;
     });
+  }
+}
 
-    todoBtn.addEventListener("click", function (e) {
-      let input = todoInput.value;
-      let temp = { todo: input, completed: false };
-      let objIndex = allDatesArray[window.selectedDay - 1].length;
-      if (input === "") {
-        alert("Поле не должно быть пустым");
+todoBtn.addEventListener("click", function (e) {
+  let input = todoInput.value;
+  let temp = { todo: input, completed: false };
+  let objIndex = allDatesArray[window.selectedDay - 1].length;
+  if (input === "") {
+    alert("Поле не должно быть пустым");
+    return;
+  }
+  allDatesArray[window.selectedDay - 1].push(temp);
+
+  localStorage.setItem("testtodos", JSON.stringify(allDatesArray));
+
+  addTodo(e, objIndex);
+  todoInput.value = "";
+});
+
+modalClose.addEventListener("click", function () {
+  modalBg.classList.remove("m-bg__active");
+});
+
+// todoBtn.addEventListener("click", addTodo);
+todoList.addEventListener("click", deleteTask);
+
+function addTodo(event, index) {
+  // allDatesArray[window.selectedDay - 1];
+
+  const todoDiv = document.createElement("div");
+  todoDiv.classList.add("todo");
+  const newTodo = document.createElement("li");
+  newTodo.innerText = allDatesArray[window.selectedDay - 1][index]["todo"];
+  newTodo.classList.add("todo-item");
+  todoDiv.appendChild(newTodo);
+  const btnDiv = document.createElement("div");
+  todoDiv.appendChild(btnDiv);
+  const completedBtn = document.createElement("button");
+  completedBtn.innerText = "Сделано";
+  completedBtn.classList.add("complete-btn");
+  btnDiv.appendChild(completedBtn);
+  const deleteBtn = document.createElement("button");
+  deleteBtn.innerText = "Удалить";
+  deleteBtn.classList.add("delete-btn");
+
+  btnDiv.appendChild(deleteBtn);
+
+  todoList.appendChild(todoDiv);
+}
+
+function deleteTask(e) {
+  const item = e.target;
+  const completedBtn = document.createElement("button");
+  let btnText = item.parentElement.innerText;
+  let fullText = item.parentElement.parentElement.innerText;
+  let replaceText = fullText.replace(btnText, "");
+
+  if (item.classList[0] === "delete-btn") {
+    const todo = item.parentElement.parentElement;
+    allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
+      console.log(obj);
+      if (
+        replaceText.replace(/\r?\n/g, "") ==
+        allDatesArray[window.selectedDay - 1][i].todo
+      ) {
+        allDatesArray[window.selectedDay - 1].splice(i, 1);
+        console.log("Получилось! Индекс: " + i);
+        localStorage.setItem("testtodos", JSON.stringify(allDatesArray)); // сохранение
+      } else {
+        console.log("Снова что-то поломал");
         return;
       }
-      allDatesArray[window.selectedDay - 1].push(temp);
-
-      localStorage.setItem("testtodos", JSON.stringify(allDatesArray));
-
-      addTodo(e, objIndex);
-      todoInput.value = "";
     });
-
-    modalClose.addEventListener("click", function () {
-      modalBg.classList.remove("m-bg__active");
-    });
+    todo.remove();
   }
+  if (item.classList[0] === "complete-btn") {
+    const todo = item.parentElement.parentElement;
 
-  // todoBtn.addEventListener("click", addTodo);
-  todoList.addEventListener("click", deleteTask);
-
-  function addTodo(event, index) {
-    // allDatesArray[window.selectedDay - 1];
-
-    const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo");
-    const newTodo = document.createElement("li");
-    newTodo.innerText = allDatesArray[window.selectedDay - 1][index]["todo"];
-    newTodo.classList.add("todo-item");
-    todoDiv.appendChild(newTodo);
-    const btnDiv = document.createElement("div");
-    todoDiv.appendChild(btnDiv);
-    const completedBtn = document.createElement("button");
-    completedBtn.innerText = "Сделано";
-    completedBtn.classList.add("complete-btn");
-    btnDiv.appendChild(completedBtn);
-    const deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "Удалить";
-    deleteBtn.classList.add("delete-btn");
-
-    btnDiv.appendChild(deleteBtn);
-
-    todoList.appendChild(todoDiv);
-  }
-
-  function deleteTask(e) {
-    const item = e.target;
-    const completedBtn = document.createElement("button");
     let btnText = item.parentElement.innerText;
     let fullText = item.parentElement.parentElement.innerText;
     let replaceText = fullText.replace(btnText, "");
 
-    if (item.classList[0] === "delete-btn") {
-      const todo = item.parentElement.parentElement;
-      allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
-        console.log(obj);
-        if (
-          replaceText.replace(/\r?\n/g, "") ==
-          allDatesArray[window.selectedDay - 1][i].todo
-        ) {
-          allDatesArray[window.selectedDay - 1].splice(i, 1);
-          console.log("Получилось! Индекс: " + i);
-          localStorage.setItem("testtodos", JSON.stringify(allDatesArray)); // сохранение
-        } else {
-          console.log("Снова что-то поломал");
-          return;
-        }
-      });
-      todo.remove();
-    }
-    if (item.classList[0] === "complete-btn") {
-      const todo = item.parentElement.parentElement;
+    allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
+      console.log(obj);
+      if (
+        replaceText.replace(/\r?\n/g, "") ==
+          allDatesArray[window.selectedDay - 1][i].todo &&
+        allDatesArray[window.selectedDay - 1][i]["completed"] == false
+      ) {
+        allDatesArray[window.selectedDay - 1][i]["completed"] = true;
+      } else if (
+        replaceText.replace(/\r?\n/g, "") ==
+          allDatesArray[window.selectedDay - 1][i].todo &&
+        allDatesArray[window.selectedDay - 1][i]["completed"] == true
+      ) {
+        allDatesArray[window.selectedDay - 1][i]["completed"] = false;
+      }
+    });
 
-      let btnText = item.parentElement.innerText;
-      let fullText = item.parentElement.parentElement.innerText;
-      let replaceText = fullText.replace(btnText, "");
-
-      allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
-        console.log(obj);
-        if (
-          replaceText.replace(/\r?\n/g, "") ==
-            allDatesArray[window.selectedDay - 1][i].todo &&
-          allDatesArray[window.selectedDay - 1][i]["completed"] == false
-        ) {
-          allDatesArray[window.selectedDay - 1][i]["completed"] = true;
-        } else if (
-          replaceText.replace(/\r?\n/g, "") ==
-            allDatesArray[window.selectedDay - 1][i].todo &&
-          allDatesArray[window.selectedDay - 1][i]["completed"] == true
-        ) {
-          allDatesArray[window.selectedDay - 1][i]["completed"] = false;
-        }
-      });
-
-      todo.classList.toggle("completed");
-    }
+    todo.classList.toggle("completed");
   }
-};
+}
 
 document.querySelector(".prev__arrow").addEventListener("click", () => {
   date.setMonth(date.getMonth() - 1);
