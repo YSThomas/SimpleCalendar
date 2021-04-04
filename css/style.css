@@ -53,11 +53,16 @@ body {
 }
 
 .calendar__days-day {
-  width: calc(48.2rem / 7);
+  width: calc(100% / 7);
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 700;
+}
+.day {
+  flex-wrap: wrap;
+  align-items: center;
+  /* justify-content: center; */
 }
 
 .calendar__dates {
@@ -69,8 +74,8 @@ body {
 }
 
 .calendar__dates-date {
-  margin: 0.3rem;
-  width: calc(44.2rem / 7);
+  /* margin: 0.3rem; */
+  width: calc(100% / 7);
   height: 5rem;
   display: flex;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -80,6 +85,14 @@ body {
   transition: background-color 0.5s ease;
   transition: font-weight 0.2s ease;
   cursor: pointer;
+}
+
+.prev__date {
+  opacity: 30%;
+}
+.next__date {
+  opacity: 30%;
+  background-color: white;
 }
 
 .date-end {

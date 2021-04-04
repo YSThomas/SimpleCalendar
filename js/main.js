@@ -9,6 +9,54 @@ const todoBtn = document.querySelector(".toDo-add");
 const todoList = document.querySelector(".toDo-list");
 const justTodo = document.querySelectorAll(".todo");
 
+const date = new Date();
+const daysDiv = document.querySelector(".day");
+
+date.setDate(1);
+
+const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+const firstDayIndex = date.getDay() - 1;
+const lastDayIndex = new Date(
+  date.getFullYear(),
+  date.getMonth() + 1,
+  0
+).getDay();
+const nextDays = 7 - lastDayIndex;
+
+console.log(firstDayIndex);
+let days = "";
+
+const months = [
+  "Январь",
+  "Февраль",
+  "Март",
+  "Апрель",
+  "Май",
+  "Июнь",
+  "Июль",
+  "Август",
+  "Сентябрь",
+  "Октябрь",
+  "Ноябрь",
+  "Декабрь",
+];
+for (let x = firstDayIndex; x > 0; x--) {
+  days += `<div class='calendar__dates-date prev__date col-'>${
+    prevLastDay - x + 1
+  }</div>`;
+}
+for (let i = 1; i <= lastDay; i++) {
+  days += `<div class='calendar__dates-date col-'>${i}</div>`;
+  daysDiv.innerHTML = days;
+}
+for (let j = 1; j <= nextDays; j++) {
+  days += `<div class='calendar__dates-date next__date col-'>${j}</div>`;
+  daysDiv.innerHTML = days;
+}
+
+document.querySelector(".calendar__month").innerHTML = months[date.getMonth()];
+
 window.selectedDay = 0;
 
 let allDatesArray = JSON.parse(localStorage.getItem("testtodos"));
@@ -56,7 +104,10 @@ todoBtn.addEventListener("click", function (e) {
   let input = todoInput.value;
   let temp = { todo: input, completed: false };
   let objIndex = allDatesArray[window.selectedDay - 1].length;
-
+  if (input === "") {
+    alert("Поле не должно быть пустым");
+    return;
+  }
   allDatesArray[window.selectedDay - 1].push(temp);
 
   localStorage.setItem("testtodos", JSON.stringify(allDatesArray));
