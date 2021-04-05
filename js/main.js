@@ -179,13 +179,13 @@ function deleteTask(e) {
 
   if (item.classList[0] === "delete-btn") {
     const todo = item.parentElement.parentElement;
-    allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
+    allDatesArray[date.getMonth()][window.selectedDay - 1].forEach((obj, i) => {
       console.log(obj);
       if (
         replaceText.replace(/\r?\n/g, "") ==
-        allDatesArray[window.selectedDay - 1][i].todo
+        allDatesArray[date.getMonth()][window.selectedDay - 1][i].todo
       ) {
-        allDatesArray[window.selectedDay - 1].splice(i, 1);
+        allDatesArray[date.getMonth()][window.selectedDay - 1].splice(i, 1);
         console.log("Получилось! Индекс: " + i);
         localStorage.setItem("testtodos", JSON.stringify(allDatesArray)); // сохранение
       } else {
@@ -202,20 +202,28 @@ function deleteTask(e) {
     let fullText = item.parentElement.parentElement.innerText;
     let replaceText = fullText.replace(btnText, "");
 
-    allDatesArray[window.selectedDay - 1].forEach((obj, i) => {
+    allDatesArray[date.getMonth()][window.selectedDay - 1].forEach((obj, i) => {
       console.log(obj);
       if (
         replaceText.replace(/\r?\n/g, "") ==
-          allDatesArray[window.selectedDay - 1][i].todo &&
-        allDatesArray[window.selectedDay - 1][i]["completed"] == false
+          allDatesArray[date.getMonth()][window.selectedDay - 1][i].todo &&
+        allDatesArray[date.getMonth()][window.selectedDay - 1][i][
+          "completed"
+        ] == false
       ) {
-        allDatesArray[window.selectedDay - 1][i]["completed"] = true;
+        allDatesArray[date.getMonth()][window.selectedDay - 1][i][
+          "completed"
+        ] = true;
       } else if (
         replaceText.replace(/\r?\n/g, "") ==
-          allDatesArray[window.selectedDay - 1][i].todo &&
-        allDatesArray[window.selectedDay - 1][i]["completed"] == true
+          allDatesArray[date.getMonth()][window.selectedDay - 1][i].todo &&
+        allDatesArray[date.getMonth()][window.selectedDay - 1][i][
+          "completed"
+        ] == true
       ) {
-        allDatesArray[window.selectedDay - 1][i]["completed"] = false;
+        allDatesArray[date.getMonth()][window.selectedDay - 1][i][
+          "completed"
+        ] = false;
       }
     });
 
