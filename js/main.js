@@ -11,8 +11,10 @@ const justTodo = document.querySelectorAll(".todo");
 
 const date = new Date();
 const daysDiv = document.querySelector(".day");
-let allDatesArray = JSON.parse(localStorage.getItem("testtodos"));
+
 date.setDate(1);
+
+let allDatesArray = JSON.parse(localStorage.getItem("testtodos"));
 ////////////////////////////////////
 console.log(allDatesArray);
 console.log((Date.now() / 1000 / 60 / 60 / 24).toFixed(3));
@@ -34,10 +36,6 @@ const months = [
   "Ноябрь",
   "Декабрь",
 ];
-
-months.forEach((el, i) => {
-  console.log(i);
-});
 
 function renderCalendar() {
   let days = "";
@@ -89,21 +87,25 @@ function renderCalendar() {
     let item = modalDiv[i];
     if (!allDatesArray) {
       allDatesArray = [];
-
-      for (let i = 0; i < modalDiv.length; i++) {
-        let listTodo = [];
-        allDatesArray.push(listTodo);
+      for (let i = 0; i < months.length; i++) {
+        let monthsTodo = [];
+        allDatesArray.push(monthsTodo);
+        for (let j = 0; j < modalDiv.length; j++) {
+          let listTodo = [];
+          monthsTodo.push(listTodo);
+        }
       }
     }
 
     item.addEventListener("click", function (e) {
       window.selectedDay = Number(item.innerText);
-      console.log(window.selectedDay);
+      console.log(date.getMonth(), window.selectedDay);
       modalBg.classList.add("m-bg__active");
 
-      let arrayItems = allDatesArray[window.selectedDay - 1].reduce(
-        (result, item) => {
-          result += `
+      let arrayItems = allDatesArray[date.getMonth()][
+        window.selectedDay - 1
+      ].reduce((result, item) => {
+        result += `
         <div class="todo"><li class="todo-item">
       ${item["todo"]}
       </li>
@@ -112,10 +114,8 @@ function renderCalendar() {
         <button class="delete-btn">Удалить</button></div>
       </div>
         `;
-          return result;
-        },
-        ""
-      );
+        return result;
+      }, "");
 
       todoList.innerHTML = arrayItems;
     });
@@ -125,12 +125,12 @@ function renderCalendar() {
 todoBtn.addEventListener("click", function (e) {
   let input = todoInput.value;
   let temp = { todo: input, completed: false };
-  let objIndex = allDatesArray[window.selectedDay - 1].length;
+  let objIndex = allDatesArray[date.getMonth()][window.selectedDay - 1].length;
   if (input === "") {
     alert("Поле не должно быть пустым");
     return;
   }
-  allDatesArray[window.selectedDay - 1].push(temp);
+  allDatesArray[date.getMonth()][window.selectedDay - 1].push(temp);
 
   localStorage.setItem("testtodos", JSON.stringify(allDatesArray));
 
@@ -151,7 +151,8 @@ function addTodo(event, index) {
   const todoDiv = document.createElement("div");
   todoDiv.classList.add("todo");
   const newTodo = document.createElement("li");
-  newTodo.innerText = allDatesArray[window.selectedDay - 1][index]["todo"];
+  newTodo.innerText =
+    allDatesArray[date.getMonth()][window.selectedDay - 1][index]["todo"];
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
   const btnDiv = document.createElement("div");
