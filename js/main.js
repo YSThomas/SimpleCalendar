@@ -14,12 +14,12 @@ const daysDiv = document.querySelector(".day");
 let allDatesArray = JSON.parse(localStorage.getItem("testtodos"));
 date.setDate(1);
 ////////////////////////////////////
-
+console.log(allDatesArray);
 console.log((Date.now() / 1000 / 60 / 60 / 24).toFixed(3));
 
 window.selectedDay = 0;
+window.calendarLimiter = 0;
 
-console.log(allDatesArray);
 const months = [
   "Январь",
   "Февраль",
@@ -34,6 +34,10 @@ const months = [
   "Ноябрь",
   "Декабрь",
 ];
+
+months.forEach((el, i) => {
+  console.log(i);
+});
 
 function renderCalendar() {
   let days = "";
@@ -91,6 +95,7 @@ function renderCalendar() {
         allDatesArray.push(listTodo);
       }
     }
+
     item.addEventListener("click", function (e) {
       window.selectedDay = Number(item.innerText);
       console.log(window.selectedDay);
@@ -218,13 +223,25 @@ function deleteTask(e) {
 }
 
 document.querySelector(".prev__arrow").addEventListener("click", () => {
-  date.setMonth(date.getMonth() - 1);
-  renderCalendar();
+  window.calendarLimiter--;
+  if (window.calendarLimiter < -3) {
+    alert("Ограничение до трех месяцев назад");
+    window.calendarLimiter++;
+  } else {
+    date.setMonth(date.getMonth() - 1);
+    renderCalendar();
+  }
 });
 
 document.querySelector(".next__arrow").addEventListener("click", () => {
-  date.setMonth(date.getMonth() + 1);
-  renderCalendar();
+  window.calendarLimiter++;
+  if (window.calendarLimiter > 3) {
+    alert("Ограничение до трех месяцев вперед");
+    window.calendarLimiter--;
+  } else {
+    date.setMonth(date.getMonth() + 1);
+    renderCalendar();
+  }
 });
 
 renderCalendar();

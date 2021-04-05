@@ -103,10 +103,12 @@ body {
 
 .prev__date {
   opacity: 30%;
+  pointer-events: none;
 }
 .next__date {
   opacity: 30%;
   background-color: white;
+  pointer-events: none;
 }
 
 .date-end {
