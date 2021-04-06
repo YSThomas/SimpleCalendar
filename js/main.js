@@ -73,7 +73,9 @@ function renderCalendar() {
     }</div>`;
   }
   for (let i = 1; i <= lastDay; i++) {
-    days += `<div class='calendar__dates-date col-'>${i}</div>`;
+    days += `<div class='calendar__dates-date col-'><span>${i}</span><span class="todos__count">${
+      allDatesArray[date.getMonth()][i - 1].length
+    }</span></div>`;
     // daysDiv.innerHTML = days;
   }
   for (let j = 1; j <= nextDays; j++) {
@@ -98,7 +100,7 @@ function renderCalendar() {
     }
 
     item.addEventListener("click", function (e) {
-      window.selectedDay = Number(item.innerText);
+      window.selectedDay = Number(item.firstElementChild.innerText);
       console.log(date.getMonth(), window.selectedDay);
       modalBg.classList.add("m-bg__active");
 
