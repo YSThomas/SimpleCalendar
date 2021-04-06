@@ -11,6 +11,7 @@ const justTodo = document.querySelectorAll(".todo");
 
 const date = new Date();
 const daysDiv = document.querySelector(".day");
+let countTodo;
 
 date.setDate(1);
 
@@ -82,6 +83,15 @@ function renderCalendar() {
     days += `<div class='calendar__dates-date next__date col-'>${j}</div>`;
     daysDiv.innerHTML = days;
   }
+
+  countTodo = document.querySelectorAll(".todos__count");
+
+  countTodo.forEach((el, i) => {
+    if (countTodo[i].innerText != 0) {
+      el.style.display = "flex";
+      console.log(el);
+    }
+  });
 
   ///////////////////////////////////
 

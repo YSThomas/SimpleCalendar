@@ -114,6 +114,7 @@ body {
   position: absolute;
   top: 5px;
   right: 5px;
+  display: none;
 }
 
 .prev__date {
